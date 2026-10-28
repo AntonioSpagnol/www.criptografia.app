@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRIPTOGRAFIA</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://www.criptografia.app/pt/">
+<link rel="alternate" hreflang="pt-BR" href="https://www.criptografia.app/pt/">
+<link rel="alternate" hreflang="en" href="https://www.criptografia.app/en/">
+<script>
+  // Sem servidor, o idioma é escolhido aqui: português por padrão, inglês só para quem não lê PT.
+  var langs = navigator.languages || [navigator.language || ""];
+  var en = !langs.some(function (l) { return /^pt/i.test(l); }) && langs.some(function (l) { return /^en/i.test(l); });
+  location.replace((en ? "/en/" : "/pt/") + location.hash);
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=/pt/"></noscript>
+<style>body{margin:0;background:#0b0d0a;color:#c9a74a;font:16px/1.5 monospace;display:grid;place-items:center;min-height:100vh}a{color:inherit}</style>
+</head>
+<body><p><a href="/pt/">CRIPTOGRAFIA · Português</a> · <a href="/en/">English</a></p></body>
+</html>

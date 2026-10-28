@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+/* Paleta: tinta de cédula + papel de certificado + fósforo de terminal. */
+@theme {
+  --color-ink: #0b0d0a;
+  --color-ink-2: #11140f;
+  --color-panel: #0e120d;
+  --color-line: rgb(201 165 90 / 0.18);
+  --color-line-strong: rgb(201 165 90 / 0.42);
+  --color-paper: #ece5cf;
+  --color-paper-2: #ded4b6;
+  --color-paper-ink: #1c1a12;
+  --color-paper-muted: #5d5643;
+  --color-gold: #c9a55a;
+  --color-gold-bright: #ead08a;
+  --color-gold-dim: #8a7337;
+  --color-money: #1d3a2b;
+  --color-money-2: #264a37;
+  --color-up: #7fd18b;
+  --color-down: #e46f5f;
+  --color-amber: #f0b54a;
+  --color-serial: #a8402f;
+  --color-muted: #9a9b8a;
+  --color-cream: #f3ecd8;
+
+  --font-display: var(--font-cinzel), "Times New Roman", serif;
+  --font-serif: var(--font-garamond), Georgia, serif;
+  --font-pixel: var(--font-vt323), ui-monospace, monospace;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --animate-marquee: marquee var(--marquee-duration, 60s) linear infinite;
+  --animate-blink: blink 1.1s steps(1) infinite;
+  --animate-scroll-up: scroll-up var(--scroll-duration, 40s) linear infinite;
+  --animate-flash-up: flash-up 1.2s ease-out;
+  --animate-flash-down: flash-down 1.2s ease-out;
+
+  @keyframes flash-up {
+    from { background-color: rgb(127 209 139 / 0.28); }
+  }
+  @keyframes flash-down {
+    from { background-color: rgb(228 111 95 / 0.28); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  @keyframes scroll-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-ink);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-bright);
+  outline-offset: 3px;
+}
+
+/* ---------- Componentes ---------- */
+
+@layer components {
+  /* Rótulo gravado em caixa-alta, como o texto miúdo de uma cédula. */
+  .engraved {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-size: 0.75rem;
+  }
+
+  .pixel {
+    font-family: var(--font-pixel);
+    letter-spacing: 0.02em;
+  }
+
+  /* Filete dourado com losango no centro. */
+  .rule-ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--color-gold);
+  }
+  .rule-ornament::before,
+  .rule-ornament::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, currentColor, transparent);
+    opacity: 0.6;
+  }
+
+  /* Moldura de cédula: borda dupla e cantos. */
+  .note-frame {
+    position: relative;
+    border: 1px solid var(--color-line-strong);
+    outline: 1px solid var(--color-line);
+    outline-offset: 5px;
+  }
+
+  /* Painel de terminal com scanlines suaves (só dentro do painel, não na página toda). */
+  .terminal {
+    position: relative;
+    background: var(--color-panel);
+    border: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+  }
+  .terminal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0) 0,
+      rgb(0 0 0 / 0) 2px,
+      rgb(0 0 0 / 0.18) 3px
+    );
+  }
+
+  .paper {
+    background-color: var(--color-paper);
+    color: var(--color-paper-ink);
+    background-image:
+      radial-gradient(rgb(28 26 18 / 0.06) 1px, transparent 1px),
+      radial-gradient(ellipse at 20% 0%, rgb(255 255 255 / 0.5), transparent 60%);
+    background-size: 4px 4px, 100% 100%;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--color-gold);
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .btn-gold:hover {
+    background: var(--color-gold-bright);
+  }
+  .btn-ghost {
+    color: var(--color-gold-bright);
+  }
+  .btn-ghost:hover {
+    background: rgb(201 165 90 / 0.12);
+  }
+  .btn-ink {
+    border-color: var(--color-paper-ink);
+    color: var(--color-paper-ink);
+  }
+  .btn-ink:hover {
+    background: var(--color-paper-ink);
+    color: var(--color-paper);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
